@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 *.so
 .Python
+*.egg-info/
+dist/
+build/
 
 # Virtual environments
 venv/
@@ -13,15 +16,33 @@ ENV/
 env.bak/
 venv.bak/
 
+# DVC - ignore cache and temporary files
+# Note: .dvc/config and .dvc/.gitignore should be committed
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+# Data files (tracked by DVC, not git)
+*.csv
+*.parquet
+*.json
+!package.json
+!tsconfig.json
+!*.dvc
+
 # Model files
 *.pkl
 *.pth
 *.h5
 *.joblib
 *.model
+*.onnx
+*.pb
 
 # Results and outputs
 results.json
+outputs/
+logs/
 *.log
 
 # IDE
@@ -30,15 +51,30 @@ results.json
 *.swp
 *.swo
 *~
+.project
+.pydevproject
 
 # OS
 .DS_Store
 Thumbs.db
+.DS_Store?
 
 # Jupyter Notebook
-.ipynb_checkpoints
+.ipynb_checkpoints/
 *.ipynb
 
 # Environment variables
 .env
 .env.local
+.env.*.local
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# GCS credentials (if stored locally)
+gcs-key.json
+*-key.json
+service-account*.json
