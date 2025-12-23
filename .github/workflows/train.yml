@@ -34,14 +34,9 @@ jobs:
         working-directory: ./github-actions-mlops
         run: python train.py
         
-      - name: Upload model
-        uses: actions/upload-artifact@v4
-        with:
-          name: model
-          path: github-actions-mlops/model.pkl
-          
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        with:
-          name: results
-          path: github-actions-mlops/results.json
+      - name: Deploy to Hugging Face
+        working-directory: ./github-actions-mlops
+        env:
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+          HUGGINGFACE_REPO_ID: ${{ secrets.HUGGINGFACE_REPO_ID }}
+        run: python deploy_hf.py

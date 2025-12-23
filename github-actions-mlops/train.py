@@ -55,7 +55,6 @@ for name, model in models.items():
     print(f"  Test set size: {len(y_test)} samples")
     print(f"  Correct predictions: {sum(y_pred == y_test)}/{len(y_test)}")
     
-    # Select best model based on cross-validation score
     if cv_mean > best_cv_score:
         best_cv_score = cv_mean
         best_score = test_score
@@ -68,15 +67,14 @@ print(f"  Cross-validation accuracy: {best_cv_score:.4f}")
 print(f"  Test set accuracy: {best_score:.4f}")
 print(f"{'='*50}")
 
-# Retrain best model on full dataset
+
 print(f"\nRetraining {best_name} on full dataset...")
 best_model.fit(X, y)
 
-# Save the best model
+
 with open('model.pkl', 'wb') as f:
     pickle.dump(best_model, f)
 
-# Save results
 with open('results.json', 'w') as f:
     json.dump({
         'best_model': best_name,
