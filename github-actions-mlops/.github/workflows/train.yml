@@ -1,0 +1,36 @@
+name: Train Model
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Train model
+        run: python train.py
+      - name: Save model
+        run: python -m pickle.dump(model, open("model.pkl", "wb"))
+      - name: Save results
+        run: python -m json.dump(results, open("results.json", "w"))
+      -name: Upload model
+        uses: actions/upload-artifact@v4
+        with:
+          name: model
+          path: model.pkl
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: results.json
+      
