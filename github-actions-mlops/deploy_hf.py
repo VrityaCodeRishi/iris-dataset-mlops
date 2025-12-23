@@ -1,13 +1,19 @@
 import os
-import json
 from huggingface_hub import HfApi, login
 
-login(token=os.getenv("HUGGINGFACE_TOKEN"))
+hf_token = os.environ.get("HUGGINGFACE_TOKEN")
+if not hf_token:
+    raise ValueError("HUGGINGFACE_TOKEN environment variable is not set or is empty")
 
-repo_id = os.environ["HUGGINGFACE_REPO_ID"]
+
+login(token=hf_token)
+
+
+repo_id = os.environ.get("HF_REPO_ID", "your-username/iris-classifier")
+if repo_id == "your-username/iris-classifier":
+    print("Warning: Using default repo ID. Set HF_REPO_ID environment variable.")
 
 api = HfApi()
-
 api.upload_file(
     path_or_fileobj="model.pkl",
     path_in_repo="model.pkl",

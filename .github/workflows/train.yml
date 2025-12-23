@@ -38,5 +38,5 @@ jobs:
         working-directory: ./github-actions-mlops
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-          HUGGINGFACE_REPO_ID: ${{ secrets.HUGGINGFACE_REPO_ID }}
+          HF_REPO_ID: ${{ secrets.HF_REPO_ID }}
         run: python deploy_hf.py
