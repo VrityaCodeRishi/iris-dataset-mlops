@@ -9,9 +9,9 @@ if not hf_token:
 login(token=hf_token)
 
 
-repo_id = os.environ.get("HF_REPO_ID", "your-username/iris-classifier")
-if repo_id == "your-username/iris-classifier":
-    print("Warning: Using default repo ID. Set HF_REPO_ID environment variable.")
+repo_id = os.environ.get("HUGGINGFACE_REPO_ID")
+if not repo_id:
+    raise ValueError("HUGGINGFACE_REPO_ID environment variable is not set or is empty")
 
 api = HfApi()
 api.upload_file(
